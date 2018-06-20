@@ -3,6 +3,11 @@
 This file logs the changes that are actually interesting to users (new features,
 changed functionality, fixed bugs). For other changes, see the Git history.
 
+## Version 1.0.1  (2018-06-20)
+
+- Tweak to a caching function to prevent referencing Blender DNA
+  memory.
+
 
 ## Version 1.0
 
