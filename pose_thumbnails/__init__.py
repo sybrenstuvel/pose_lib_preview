@@ -17,7 +17,7 @@
 # ##### END GPL LICENSE BLOCK #####
 
 
-__version__ = '1.0.1'
+__version__ = '2.0.0'
 
 bl_info = {
     'name': 'Pose Library Thumbnails',
