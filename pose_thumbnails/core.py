@@ -525,7 +525,18 @@ class POSELIB_OT_mix_pose(bpy.types.Operator):
         :param context:
         """
         POSELIB_OT_mix_pose.is_running = None
-        context.area.tag_redraw()
+
+        try:
+            bpy.app.handlers.undo_pre.remove(self.on_undo_redo)
+        except ValueError:
+            pass
+        try:
+            bpy.app.handlers.redo_pre.remove(self.on_undo_redo)
+        except ValueError:
+            pass
+
+        if context is not None:
+            context.area.tag_redraw()
 
     def apply_and_finish(self):
         """Apply the currently mixed pose and finish running the operator."""
@@ -546,6 +557,11 @@ class POSELIB_OT_mix_pose(bpy.types.Operator):
         return {'FINISHED'}
 
     def modal(self, context, event):
+        if self._target_state == 'ABORTED':
+            # Assumes the code setting this state already performed cleanup.
+            logger.debug('Aborting modal application')
+            return {'FINISHED'}
+
         if ((event.type == 'LEFTMOUSE' and event.value == 'CLICK')
                 or event.type == 'RET' or self._target_state == 'FINISHED'):
             logger.debug('Finishing modal application')
@@ -576,7 +592,28 @@ class POSELIB_OT_mix_pose(bpy.types.Operator):
         wm = context.window_manager
         wm.modal_handler_add(self)
 
+        # Make sure we cancel before an undo/redo.
+        bpy.app.handlers.undo_pre.append(self.on_undo_redo)
+        bpy.app.handlers.redo_pre.append(self.on_undo_redo)
+
         return {'RUNNING_MODAL'}
+
+    def on_undo_redo(self, _=None):
+        """Called by Blender before an undo/redo action.
+
+        Cancels the operator by restoring the original pose and setting
+        the state to ABORTED. This will instruct the modal() function to
+        immediately return {'FINISHED'} when it's called (this is the only
+        way to actually stop a modal operator).
+
+        This behaviour is a necessity since after loading another file (which
+        is what happens on undo/redo) the pose we remembered contains invalid
+        pointers.
+        """
+        logger.debug('Aborting due to UNDO/REDO action.')
+        set_pose(self.current_pose, auto_key=False)
+        self._finish(None)
+        self._target_state = 'ABORTED'
 
     def _determine_poses(self):
         """Set self.current_pose and self.target_pose.
