@@ -20,8 +20,6 @@
 # Contribution: Sybren A. Stüvel <sybren@blender.studio>, Blender Cloud and
 # Landscape Tools add-ons.
 
-import io
-import re
 import sys
 from distutils.command.bdist import bdist
 from distutils.command.install import install
@@ -31,10 +29,6 @@ from setuptools import find_packages, setup
 
 # Prevents __pycache__ dirs from being created & packaged.
 sys.dont_write_bytecode = True
-
-with io.open('pose_thumbnails/__init__.py', 'rt', encoding='utf8') as f:
-    firstbit = f.read(2048)
-    version = re.search(r"__version__ = '(.*?)'", firstbit).group(1)
 
 
 class BlenderAddonBdist(bdist):
@@ -74,7 +68,7 @@ setup(
     },
     name='pose_thumbnails',
     description='Blender add-on that adds thumbnails to a pose library.',
-    version=version,
+    version='2.0.0',
     author='Jasper van Nieuwenhuizen',
     author_email='jasper@linesofjasper.com',
     packages=find_packages('.'),
