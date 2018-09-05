@@ -51,7 +51,7 @@ def get_pose_from_thumbnail(thumbnail):
 
 def draw_creation(layout, pose_thumbnail_options, poselib):
     if poselib.library:
-        layout.label('Not showing creation options for linked pose libraries')
+        layout.label(text='Not showing creation options for linked pose libraries')
         layout.operator(
             POSELIB_OT_refresh_thumbnails.bl_idname,
             icon='FILE_REFRESH',
@@ -110,27 +110,27 @@ class POSELIB_OT_add_thumbnail(bpy.types.Operator, ImportHelper):
     bl_label = 'Add thumbnail'
     bl_options = {'PRESET', 'UNDO'}
 
-    display_type = bpy.props.EnumProperty(
+    display_type: bpy.props.EnumProperty(
         items=(('LIST_SHORT', 'Short List', '', 1),
                ('LIST_LONG', 'Long List', '', 2),
                ('THUMBNAIL', 'Thumbnail', '', 3)),
         options={'HIDDEN', 'SKIP_SAVE'},
         default='THUMBNAIL',
     )
-    filter_image = bpy.props.BoolProperty(
+    filter_image: bpy.props.BoolProperty(
         default=True,
         options={'HIDDEN', 'SKIP_SAVE'},
     )
-    filter_folder = bpy.props.BoolProperty(
+    filter_folder: bpy.props.BoolProperty(
         default=True,
         options={'HIDDEN', 'SKIP_SAVE'},
     )
-    filter_glob = bpy.props.StringProperty(
+    filter_glob: bpy.props.StringProperty(
         default='',
         options={'HIDDEN', 'SKIP_SAVE'},
     )
 
-    use_relative_path = bpy.props.BoolProperty(
+    use_relative_path: bpy.props.BoolProperty(
         name='Relative Path',
         description='Select the file relative to the blend file',
         default=True,
@@ -166,31 +166,31 @@ class POSELIB_OT_add_thumbnails_from_dir(bpy.types.Operator, ImportHelper):
     bl_idname = 'poselib.add_thumbnails_from_dir'
     bl_label = 'Add Thumbnails from Directory'
     bl_options = {'PRESET', 'UNDO'}
-    directory = bpy.props.StringProperty(
+    directory: bpy.props.StringProperty(
         maxlen=1024,
         subtype='DIR_PATH',
         options={'HIDDEN', 'SKIP_SAVE'},
     )
-    files = bpy.props.CollectionProperty(
+    files: bpy.props.CollectionProperty(
         type=bpy.types.OperatorFileListElement,
         options={'HIDDEN', 'SKIP_SAVE'},
     )
-    display_type = bpy.props.EnumProperty(
+    display_type: bpy.props.EnumProperty(
         items=(('LIST_SHORT', 'Short List', '', 1),
                ('LIST_LONG', 'Long List', '', 2),
                ('THUMBNAIL', 'Thumbnail', '', 3)),
         options={'HIDDEN', 'SKIP_SAVE'},
         default='THUMBNAIL',
     )
-    filter_image = bpy.props.BoolProperty(
+    filter_image: bpy.props.BoolProperty(
         default=True,
         options={'HIDDEN', 'SKIP_SAVE'},
     )
-    filter_folder = bpy.props.BoolProperty(
+    filter_folder: bpy.props.BoolProperty(
         default=True,
         options={'HIDDEN', 'SKIP_SAVE'},
     )
-    filter_glob = bpy.props.StringProperty(
+    filter_glob: bpy.props.StringProperty(
         default='',
         options={'HIDDEN', 'SKIP_SAVE'},
     )
@@ -200,34 +200,34 @@ class POSELIB_OT_add_thumbnails_from_dir(bpy.types.Operator, ImportHelper):
                            'so numbering them makes sense).'),
         ('FRAME', 'Frame', 'Map the files to the order of the frame number of the poses.'),
     )
-    mapping_method = bpy.props.EnumProperty(
+    mapping_method: bpy.props.EnumProperty(
         name='Match by',
         description='Match the thumbnail images to the poses by using this method',
         items=map_method_items,
     )
-    overwrite_existing = bpy.props.BoolProperty(
+    overwrite_existing: bpy.props.BoolProperty(
         name='Overwrite existing',
         description='Overwrite existing thumbnails of the poses',
         default=True,
     )
-    match_fuzzyness = bpy.props.FloatProperty(
+    match_fuzzyness: bpy.props.FloatProperty(
         name='Fuzzyness',
         description='Fuzzyness of the matching (0 = exact match, 1 = everything)',
         min=0.0,
         max=1.0,
         default=0.4,
     )
-    match_by_number = bpy.props.BoolProperty(
+    match_by_number: bpy.props.BoolProperty(
         name='Match by number',
         description='If the filenames start with a number, match the number to the pose index/frame',
         default=False,
     )
-    start_number = bpy.props.IntProperty(
+    start_number: bpy.props.IntProperty(
         name='Start number',
         description='The image number to map to the first pose',
         default=1,
     )
-    use_relative_path = bpy.props.BoolProperty(
+    use_relative_path: bpy.props.BoolProperty(
         name='Relative Path',
         description='Select the file relative to the blend file',
         default=True,

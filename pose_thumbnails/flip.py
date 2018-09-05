@@ -170,7 +170,7 @@ def matrix(m44: mathutils.Matrix) -> mathutils.Matrix:
         (0, 0, 1, 0),
         (0, 0, 0, 1),
     ))
-    return flip_x * m44 * flip_x
+    return flip_x @ m44 @ flip_x
 
 
 def _round(m44: mathutils.Matrix):

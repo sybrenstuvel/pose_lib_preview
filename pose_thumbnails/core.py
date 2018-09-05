@@ -438,7 +438,7 @@ def draw_thumbnails(context, layout, pose_thumbnail_options):
         split.prop(context.window_manager, 'pose_mix_factor')
         split.operator(POSELIB_OT_apply_mix_pose.bl_idname, icon='FILE_TICK')
         split = container.row(align=True).split(0.8, align=True)
-        split.label('Left-click/ENTER to apply, Right-click/ESCAPE to cancel')
+        split.label(text='Left-click/ENTER to apply, Right-click/ESCAPE to cancel')
         split.operator(POSELIB_OT_cancel_mix_pose.bl_idname, icon='PANEL_CLOSE')
     row = layout.row(align=True)
     row.prop(pose_thumbnail_options, 'flipped')
@@ -493,13 +493,13 @@ class POSELIB_OT_mix_pose(bpy.types.Operator):
     is_running = None
     """The instance of the running modal operator, if any."""
 
-    pose_index = bpy.props.IntProperty(
+    pose_index: bpy.props.IntProperty(
         name='Pose Index',
         default=0,
         min=0,
         description='The index of the pose to mix',
     )
-    flipped = bpy.props.BoolProperty(
+    flipped: bpy.props.BoolProperty(
         name='Apply Flipped',
         description='Apply the pose mirrored over the YZ-plane',
         default=False,
@@ -649,12 +649,12 @@ class POSELIB_OT_mix_pose(bpy.types.Operator):
 
 class PoselibThumbnail(bpy.types.PropertyGroup):
     """A property to hold the thumbnail info for a pose"""
-    frame = bpy.props.IntProperty(
+    frame: bpy.props.IntProperty(
         name='Pose frame',
         description='The frame of the pose marker',
         default=-1,
     )
-    filepath = bpy.props.StringProperty(
+    filepath: bpy.props.StringProperty(
         name='Thumbnail path',
         description='The file path of the thumbnail image',
         default='',
@@ -671,22 +671,22 @@ def on_flipped_updated(self, context):
 
 class PoselibThumbnailsOptions(bpy.types.PropertyGroup):
     """A property to hold the option info for the thumbnail UI"""
-    show_creation_options = bpy.props.BoolProperty(
+    show_creation_options: bpy.props.BoolProperty(
         name='Thumbnail Creation',
         description='Show or hide the thumbnail creation options',
         default=False,
     )
-    show_labels = bpy.props.BoolProperty(
+    show_labels: bpy.props.BoolProperty(
         name='Show Labels',
         description='Show the labels (pose names) underneath the thumbnails',
         default=True,
     )
-    show_all_poses = bpy.props.BoolProperty(
+    show_all_poses: bpy.props.BoolProperty(
         name='Show All Poses',
         description='Also show poses that don\'t have a thumbnail',
         default=False,
     )
-    flipped = bpy.props.BoolProperty(
+    flipped: bpy.props.BoolProperty(
         name='Apply Flipped',
         description='Apply the pose mirrored over the YZ-plane',
         default=False,
