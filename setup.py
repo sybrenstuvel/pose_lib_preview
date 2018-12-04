@@ -68,7 +68,7 @@ setup(
     },
     name='pose_thumbnails',
     description='Blender add-on that adds thumbnails to a pose library.',
-    version='2.0.0',
+    version='2.0.1',
     author='Jasper van Nieuwenhuizen',
     author_email='jasper@linesofjasper.com',
     packages=find_packages('.'),
