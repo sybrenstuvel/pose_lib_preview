@@ -447,10 +447,10 @@ def draw_thumbnails(context, layout, pose_thumbnail_options):
     )
     if POSELIB_OT_apply_mix_pose.poll(context):
         container = layout.box()
-        split = container.row(align=True).split(0.8, align=True)
+        split = container.row(align=True).split(factor=0.8, align=True)
         split.prop(context.window_manager, 'pose_mix_factor')
         split.operator(POSELIB_OT_apply_mix_pose.bl_idname, icon='FILE_TICK')
-        split = container.row(align=True).split(0.8, align=True)
+        split = container.row(align=True).split(factor=0.8, align=True)
         split.label(text='Left-click/ENTER to apply, Right-click/ESCAPE to cancel')
         split.operator(POSELIB_OT_cancel_mix_pose.bl_idname, icon='PANEL_CLOSE')
     row = layout.row(align=True)
